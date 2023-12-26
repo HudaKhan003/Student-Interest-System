@@ -1,0 +1,176 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Students_Interest_System.Models
+@model User
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/v/bs4-4.6.0/jq-3.7.0/dt-1.13.8/b-2.4.2/fc-4.3.0/sc-2.3.0/sb-1.6.0/sp-2.2.0/sl-1.7.0/datatables.min.css" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js" />
+    <link href="https://cdn.jsdelivr.net/npm/fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+
+    @if (TempData["message"] != null)
+    {
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                toastr.success('@TempData["message"]');
+            });
+        </script>
+    }
+
+    @if (TempData["warning"] != null)
+    {
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                toastr.warning('@TempData["warning"]');
+            });
+        </script>
+    }
+    @if (TempData["alert"] != null)
+    {
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                toastr.error('@TempData["alert"]');
+            });
+        </script>
+    }
+
+    <title>Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #3f5a5c;
+        }
+
+        .vertical-container {
+            width: 70%;
+            height: 70vh; /* Increased height */
+            margin: 10% 15%; /* Adjusted margin */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #d3e0ea; /* Swapped colors */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .horizontal-container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 55vh;
+            background-color: #3f5a5c; /* Swapped colors */
+            margin-top: 10%; /* Adjusted margin */
+            margin-bottom: 10%; /* Adjusted margin */
+        }
+
+        .container {
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 10px;
+            border-width: 5px;
+            border-color: black;
+            transform: translateX(-50%);
+        }
+
+        .box {
+            transform: translate(-50%, -15%);
+            border: 1px solid black;
+            padding: 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            line-height: 1;
+            margin-top: 30%;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            margin-left:65%;
+        }
+
+        .input-field {
+            width: 300px;
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-btn {
+            background-color: #446879;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #556f71;
+        }
+
+        h1 {
+            color: #3f5a5c;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-family:'Times New Roman', Times, serif;
+        }
+        a{
+            margin-top:50px;
+            text-decoration:none;
+            color: #3f5a5c;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="vertical-container">
+        <h1>Login Here</h1>
+        <form class="login-form box" action="/Student/login" method="post">
+            <input type="text" class="input-field" placeholder="Enter username" asp-for="Username" required />
+
+            <input type="password" class="input-field" placeholder="Enter password" asp-for="Password" required />
+
+            <button type="submit" class="login-btn">Login</button>
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+                <p style="color: red;">@ViewBag.ErrorMessage</p>
+            }
+        </form>
+        <a class="anchor" href="/Student/Signup">Register Now?</a>
+    </div>
+
+    <div class="horizontal-container">
+    </div>
+
+</body>
+</html>
